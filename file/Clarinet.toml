@@ -1,14 +1,22 @@
 [project]
 name = "hr-onboarding"
-authors = []
-description = "Employee onboarding smart contract for HR management"
+authors = ["Hammed"]
+description = "Employee onboarding and benefits management system using smart contracts"
 telemetry = false
 requirements = []
 boot_contracts = ["pox", "costs-v2", "bns"]
 
+[contracts.onboarding-trait]
+path = "contracts/onboarding-trait.clar"
+depends_on = []
+
 [contracts.onboarding]
 path = "contracts/onboarding.clar"
-depends_on = []
+depends_on = ["onboarding-trait"]
+
+[contracts.benefits]
+path = "contracts/benefits.clar"
+depends_on = ["onboarding-trait", "onboarding"]
 
 [repl]
 costs_version = 2
@@ -18,7 +26,7 @@ parser_version = 2
 passes = ["check_checker"]
 
 [repl.analysis.check_checker]
-strict = false
+strict = true
 trusted_sender = false
 trusted_caller = false
 callee_filter = false
